@@ -1,1 +1,40 @@
-<p>nguoi-dung-guoi-phieu works!</p>
+<!-- my-form.component.html -->
+
+<div class="container" style="border: 1px solid red;">
+    <div class="row" style="height: 15px;"></div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="float-right">
+            <button mat-raised-button id="add-Family-btn" type="button" >
+                <i class="fas fa-plus"></i> <span>Thêm mới</span>
+            </button>
+        </div>
+        <div class="col-md-6">
+            <form class="example-form row">
+
+                <div class="h3 text-center text-dark">
+                    Báo lỗi hệ thống
+                </div>
+                <mat-form-field class="col-md-12">
+                    <mat-label>Nhập số điện thoại: </mat-label>
+                    <input type="text" matInput placeholder="Nhập số điện thoại:" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select placeholder="Dịch vụ sử dụng">
+                        <mat-option *ngFor="let dichVuSuDung of dichVuSuDungs" [value]="dichVuSuDung.dv_id">
+                            {{dichVuSuDung.dv_tendv}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-md-12">
+                    <mat-label>Nhập nội dung: </mat-label>
+                    <textarea matInput placeholder="Nhập nội dung"></textarea>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<div id="Modal">
+
+</div>
