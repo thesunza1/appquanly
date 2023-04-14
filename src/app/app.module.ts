@@ -9,14 +9,16 @@ import { NhanVienNhanPhieuComponent } from './nhan-vien-nhan-phieu/nhan-vien-nha
 import { NhanVienKyThuatComponent } from './nhan-vien-ky-thuat/nhan-vien-ky-thuat.component';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatCardModule} from '@angular/material/card';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatTableModule, MatTableDataSourcePaginator} from '@angular/material/table';
-import {MatButtonModule} from '@angular/material/button';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatTableModule, MatTableDataSourcePaginator } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -43,6 +45,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatExpansionModule,
     HttpClientModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

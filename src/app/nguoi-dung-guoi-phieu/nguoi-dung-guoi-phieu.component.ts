@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { MatTableDataSourcePaginator, MatTableDataSource } from '@angular/material/table';
 import { ApiService } from '../api.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-nguoi-dung-guoi-phieu',
@@ -9,7 +10,9 @@ import { ApiService } from '../api.service';
   styleUrls: ['./nguoi-dung-guoi-phieu.component.css']
 })
 export class NguoiDungGuoiPhieuComponent {
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,
+    private _snackBar: MatSnackBar,
+  ) { }
   dichVuSuDungs: any = [
     {
       dv_id: 1,
@@ -33,7 +36,7 @@ export class NguoiDungGuoiPhieuComponent {
     id: new FormControl(null),
     dv_id: new FormControl(null),
     dv_ten: new FormControl(null),
-    noidung: new FormControl(null),
+    pbh_noidung: new FormControl(null),
     trangthai: new FormControl(null)
   });
   ELEMENT_DATA: any = [];
@@ -53,12 +56,36 @@ export class NguoiDungGuoiPhieuComponent {
       this.dataSource.data = res.phieubaohong;
     });
   }
-  dmdichvu = [];
+  dmdichvu: any = [];
   apiGetDmdichvu() {
     let sdt = this.searchForm.controls['sdt'].value;
     this.apiService.getDSBaoHongBySdtKhachHang(sdt).subscribe(res => {
       this.dmdichvu = res.data;
     });
   }
+  phieuDangKy: any = {
+    sdt: 0,
+    dv_id: null,
+    pbh_noidung: null
+  }
 
+  insertPhieuBaoHong() {
+    let sdt = this.searchForm.controls['sdt'].value;
+    this.phieuDangKy.sdt = sdt;
+    this.phieuDangKy.dv_id = this.addForm.controls['dv_id'].value;
+    this.phieuDangKy.pbh_noidung = this.addForm.controls['pbh_noidung'].value;
+    console.log(this.phieuDangKy);
+    this.apiInsertPhieuBaoHong(this.phieuDangKy);
+
+  }
+  apiInsertPhieuBaoHong(body: any) {
+    this.apiService.themPhieuBaoHong(body).subscribe(res => {
+      if (res.status == 200) {
+        this._snackBar.open('Thêm mới thành công', 'Đóng')
+        this.search();
+      } else {
+        this._snackBar.open('Thêm Lỗi', 'Đóng');
+      }
+    })
+  }
 }
