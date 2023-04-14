@@ -4,13 +4,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  apiUrl = 'http://10.102.21.28:8000/api/';
+  apiUrl = 'http://10.102.21.14:8000/api/';
   constructor(private http: HttpClient) { }
 
 
-
   getAll(){
-    return this.http.get<any>(this.apiUrl).pipe()
+    return this.http.get<any>(this.apiUrl + 'DichVu/geDanhSachDichVu').pipe()
   }
   
   getDSBaoHongByIdKhachHang(sdt:any){
@@ -19,5 +18,29 @@ export class ApiService {
 
   getDSBaoHongBySdtKhachHang(sdt:any){
     return this.http.get<any>(this.apiUrl+'DichVu/getDSDichVuByIdKhachHang/'+ sdt).pipe()
+  }
+
+  phieuBaoHong(sdt:any){
+    return this.http.get<any>(this.apiUrl+'PhieuBaoHong/danhsachphieu').pipe()
+  }
+
+  themPhieuBaoHong(body:any){
+    return this.http.post<any>(this.apiUrl+'PhieuBaoHong/insert', body).pipe()
+  }
+
+  bangiaoxulyPhieuBaoHong(body:any){
+    return this.http.post<any>(this.apiUrl+'PhieuBaoHong/banGiaoXuLy', body).pipe()
+  }
+
+  xacnhanPhieuBaoHong(body:any){
+    return this.http.post<any>(this.apiUrl+'PhieuBaoHong/xacNhan', body).pipe()
+  }
+
+  capnhatPhieuBaoHong(body:any){
+    return this.http.post<any>(this.apiUrl+'PhieuBaoHong/update', body).pipe()
+  }
+
+  hoanthanhPhieuBaoHong(body:any){
+    return this.http.post<any>(this.apiUrl+'PhieuBaoHong/hoanThanh', body).pipe()
   }
 }

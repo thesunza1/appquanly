@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { MatTableDataSourcePaginator, MatTableDataSource } from '@angular/material/table';
-import { ValidationService } from '../validation.service';
-import * as $ from 'jquery';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -40,7 +38,7 @@ export class NguoiDungGuoiPhieuComponent {
   });
   ELEMENT_DATA: any = [];
   dataSource = new MatTableDataSource<any>(this.ELEMENT_DATA);
-  displayedColumns = ['stt', 'DV_TENDV', 'PBH_NOIDUNG', 'PBH_TRANGTHAI'];
+  displayedColumns = ['stt', 'DV_TENDV', 'PBH_NOIDUNG', 'PBH_TRANGTHAI', 'function'];
   searchForm = new FormGroup({
     sdt: new FormControl(null)
   });

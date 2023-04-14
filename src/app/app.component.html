@@ -1,33 +1,6 @@
 
 <div style="height: 1000px; ">
   <mat-drawer-container  style="height: 100%; background-color: white; ">
-    <mat-drawer mode="side" opened>
-      <aside>
-        <ng-container>
-          <div class="nav-wrapper" >
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/']">
-                  <span title="Trang tổng quan">Người dùng</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/nhanviennhanphieu']">
-                  <span title="Thoát">Nhân viên nhận phiếu</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" [routerLink]="['/nhanvienkythuat']">
-                    <span title="Trang tổng quan">Nhân viên kỹ thuật</span>
-                  </a>
-              </li>
-            </ul>
-          </div>
-        </ng-container>
-    
-      </aside>
-
-    </mat-drawer>
     <mat-drawer-content>
       <router-outlet></router-outlet>
     </mat-drawer-content>
