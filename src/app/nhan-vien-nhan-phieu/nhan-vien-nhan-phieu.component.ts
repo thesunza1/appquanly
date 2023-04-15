@@ -11,12 +11,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class NhanVienNhanPhieuComponent {
   constructor(private apiService: ApiService,
     private _snackBar: MatSnackBar,
-  ) { }
+  ) {
 
+    apiService.getDanhSachNhanVienKyThuat().subscribe(res => {
+      this.dsNhanVienKyThuat = res.data;
+    })
+  }
+
+  dsNhanVienKyThuat: any;
 
   ELEMENT_DATA: any = [];
   dataSource = new MatTableDataSource<any>(this.ELEMENT_DATA);
-  displayedColumns = ['stt', 'PBH_DANHGIA_LOINHAN', 'PBH_DANHGIA_SAO', 'PBH_NOIDUNG', 'PBH_TRANGTHAI', 'function'];
+  displayedColumns = ['stt', 'PBH_DANHGIA_LOINHAN', 'PBH_DANHGIA_SAO', 'PBH_NOIDUNG', 'PBH_TRANGTHAI', 'NVKY_THUAT','NVTIEP_NHAN', 'function'];
   searchForm = new FormGroup({
     sdt: new FormControl(null)
   });
@@ -52,6 +58,9 @@ export class NhanVienNhanPhieuComponent {
       PBH_TRANGTHAI: element.PBH_TRANGTHAI,
       PBH_DANHGIA_LOINHAN: element.PBH_DANHGIA_LOINHAN,
       PBH_DANHGIA_SAO: element.PBH_DANHGIA_SAO,
+      ID_NV_XU_LY: element.ID_NV_XU_LY,
+      ID_NV_TIEP_NHAN: element.ID_NV_TIEP_NHAN,
+
     });
     this.addForm.controls.DV_ID.disable();
     this.addForm.controls.PBH_NOIDUNG.disable();
@@ -71,6 +80,8 @@ export class NhanVienNhanPhieuComponent {
     PBH_TRANGTHAI: new FormControl(null),
     PBH_DANHGIA_SAO: new FormControl(null),
     PBH_DANHGIA_LOINHAN: new FormControl(null),
+    ID_NV_XU_LY: new FormControl(null),
+    ID_NV_TIEP_NHAN: new FormControl(null),
   });
   dmDanhGia: any = [
     {
@@ -106,7 +117,7 @@ export class NhanVienNhanPhieuComponent {
       TEN_TRANG_THAI: 'Phiếu đã được tiếp nhận',
     },
     {
-      TRANG_THAI: 'PHIEU_DANG_DUOC_GUI',
+      TRANG_THAI: 'PHIEU_DA_GIAO_KY_THUAT_XU_LY',
       TEN_TRANG_THAI: 'Phiếu đã giao kỹ thuật xử lý',
     },
     {
