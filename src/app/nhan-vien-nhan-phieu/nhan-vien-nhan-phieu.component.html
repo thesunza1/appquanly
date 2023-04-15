@@ -66,6 +66,15 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
+                    <div class="col-12" class="input-group" appearance="outline">
+                        <mat-form-field class="input-group">
+                            <mat-select formControlName="PBH_TRANGTHAI" placeholder=" Trạng thái">
+                                <mat-option *ngFor="let trangThai of dmTrangThai" [value]="trangThai.TRANG_THAI">
+                                    {{trangThai.TEN_TRANG_THAI}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </form>
             </mat-expansion-panel>
         </div>

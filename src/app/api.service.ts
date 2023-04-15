@@ -48,4 +48,8 @@ export class ApiService {
   getDSDichVuBySdtKhachHang(sdt:any){
     return this.http.get<any>(this.apiUrl+'DichVu/getDSDichVuBySdtKhachHang/'+ sdt).pipe()
   } 
+
+  getDanhSachNhanVienKyThuat(){
+    return this.http.get<any>(this.apiUrl+'NhanVien/getDanhSachNhanVienKyThuat').pipe()
+  } 
 }

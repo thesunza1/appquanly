@@ -39,7 +39,7 @@
                         Tạo phiếu báo lỗi hệ thống
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <form [formGroup]="addForm" (submit)="!addForm.controls.DV_ID.value ? insertPhieuBaoHong(): capNhat()">
+                <form [formGroup]="addForm" (submit)="!addForm.controls.KH_ID.value ? insertPhieuBaoHong(): capNhat()">
                     <div class="col-md-6">
                         <mat-form-field class="input-group">
                             <mat-select formControlName="DV_ID" placeholder="Dịch vụ sử dụng">
@@ -55,7 +55,7 @@
                             <input matInput formControlName="PBH_NOIDUNG" placeholder="Nhập nội dung" />
                         </mat-form-field>
                     </div>
-                    <div class="col-12" class="input-group" appearance="outline" *ngIf="addForm.controls.DV_ID.value">
+                    <div class="col-12" class="input-group" appearance="outline" *ngIf="addForm.controls.KH_ID.value">
                         <mat-form-field class="input-group">
                             <mat-select formControlName="PBH_DANHGIA_SAO" placeholder=" Điểm đánh giá">
                                 <mat-option *ngFor="let DanhGia of dmDanhGia" [value]="DanhGia.DANHGIA_SAO">
@@ -64,7 +64,7 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="col-12" class="input-group" appearance="outline" *ngIf="addForm.controls.DV_ID.value">
+                    <div class="col-12" class="input-group" appearance="outline" *ngIf="addForm.controls.KH_ID.value">
                         <mat-form-field class="col-md-12">
                             <mat-label> Nội dung đánh giá </mat-label>
                             <input matInput formControlName="PBH_DANHGIA_LOINHAN"
@@ -76,11 +76,11 @@
                         <div class="btn-footer">
 
                             <button mat-raised-button id="add-Family-btn" type="submit"
-                                *ngIf="!addForm.controls.DV_ID.value" color="primary">
+                                *ngIf="!addForm.controls.KH_ID.value" color="primary">
                                 Gửi phiếu
                             </button>
                             <button mat-raised-button id="add-Family-btn" type="submit"
-                                *ngIf="addForm.controls.DV_ID.value" color="primary">
+                                *ngIf="addForm.controls.KH_ID.value" color="primary">
                                 Cập nhật phiếu
                             </button>
                         </div>
