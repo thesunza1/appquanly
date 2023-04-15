@@ -44,4 +44,8 @@ export class ApiService {
   hoanthanhPhieuBaoHong(body:any){
     return this.http.post<any>(this.apiUrl+'PhieuBaoHong/hoanThanh', body).pipe()
   }
+  
+  getDSDichVuBySdtKhachHang(sdt:any){
+    return this.http.get<any>(this.apiUrl+'DichVu/getDSDichVuBySdtKhachHang/'+ sdt).pipe()
+  } 
 }

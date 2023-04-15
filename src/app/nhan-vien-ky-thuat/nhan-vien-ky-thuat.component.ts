@@ -29,7 +29,24 @@ export class NhanVienKyThuatComponent {
     }
     this.apiGetDmdichvu();
   }
-
+  dmTrangThai: any = [
+    {
+      TRANG_THAI: 'PHIEU_DANG_DUOC_GUI',
+      TEN_TRANG_THAI: 'Phiếu đang được gửi',
+    },
+    {
+      TRANG_THAI: 'PHIEU_DA_DUOC_TIEP_NHAN',
+      TEN_TRANG_THAI: 'Phiếu đã được tiếp nhận',
+    },
+    {
+      TRANG_THAI: 'PHIEU_DANG_DUOC_GUI',
+      TEN_TRANG_THAI: 'Phiếu đã giao kỹ thuật xử lý',
+    },
+    {
+      TRANG_THAI: 'HOAN_THANH',
+      TEN_TRANG_THAI: 'Hoàn thành',
+    },
+  ];
   apiSearch() {
     this.apiService.phieuBaoHong().subscribe(res => {
       this.dataSource.data = res.data;
@@ -67,7 +84,7 @@ export class NhanVienKyThuatComponent {
     PBH_NOIDUNG: new FormControl(null),
     PBH_TRANGTHAI: new FormControl(null)
   });
-  
+
   apiHT(body: any) {
     this.apiService.hoanthanhPhieuBaoHong(body).subscribe(res => {
       if (res.status == 200) {

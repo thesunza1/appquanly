@@ -19,15 +19,25 @@ export class NguoiDungGuoiPhieuComponent {
     KH_ID: new FormControl(null),
     DV_ID: new FormControl(null),
     PBH_NOIDUNG: new FormControl(null),
-    PBH_TRANGTHAI: new FormControl(null)
+    PBH_TRANGTHAI: new FormControl(null),
+    PBH_DANHGIA_SAO: new FormControl(null),
+    PBH_DANHGIA_LOINHAN: new FormControl(null),
   });
   ELEMENT_DATA: any = [];
   dataSource = new MatTableDataSource<any>(this.ELEMENT_DATA);
-  displayedColumns = ['stt', 'DV_TENDV', 'PBH_NOIDUNG', 'PBH_TRANGTHAI', 'function'];
+  displayedColumns = ['stt', 'DV_TENDV', 'PBH_NOIDUNG', 'PBH_TRANGTHAI', 'PBH_DANHGIA_SAO', 'PBH_DANHGIA_LOINHAN', 'function'];
   searchForm = new FormGroup({
     sdt: new FormControl(null)
   });
-
+  resetformtao() {
+    this.addForm.controls.PBH_ID.setValue(null);
+    this.addForm.controls.KH_ID.setValue(null);
+    this.addForm.controls.DV_ID.setValue(null);
+    this.addForm.controls.PBH_NOIDUNG.setValue(null);
+    this.addForm.controls.PBH_TRANGTHAI.setValue(null);
+    this.addForm.controls.PBH_DANHGIA_SAO.setValue(null);
+    this.addForm.controls.PBH_DANHGIA_LOINHAN.setValue(null);
+  }
   search() {
     var conditionSearch = this.searchForm.getRawValue();
     this.apiSearch(conditionSearch.sdt);
@@ -41,7 +51,7 @@ export class NguoiDungGuoiPhieuComponent {
   dmdichvu: any = [];
   apiGetDmdichvu() {
     let sdt = this.searchForm.controls['sdt'].value;
-    this.apiService.getDSBaoHongBySdtKhachHang(sdt).subscribe(res => {
+    this.apiService.getDSDichVuBySdtKhachHang(sdt).subscribe(res => {
       this.dmdichvu = res.data;
     });
   }
@@ -50,7 +60,47 @@ export class NguoiDungGuoiPhieuComponent {
     DV_ID: null,
     PBH_NOIDUNG: null
   }
-
+  dmDanhGia: any = [
+    {
+      DANHGIA_SAO: 1,
+      DANHGIA: 'Không tốt',
+    },
+    {
+      DANHGIA_SAO: 2,
+      DANHGIA: ' Tạm được',
+    },
+    {
+      DANHGIA_SAO: 3,
+      DANHGIA: ' Bình thường',
+    },
+    {
+      DANHGIA_SAO: 4,
+      DANHGIA: ' Hài lòng',
+    },
+    {
+      DANHGIA_SAO: 5,
+      DANHGIA: ' Cực kỳ hài lòng',
+    },
+  ];
+  dmTrangThai: any = [
+    {
+      TRANG_THAI: 'PHIEU_DANG_DUOC_GUI',
+      TEN_TRANG_THAI: 'Phiếu đang được gửi',
+    },
+    {
+      TRANG_THAI: 'PHIEU_DA_DUOC_TIEP_NHAN',
+      TEN_TRANG_THAI: 'Phiếu đã được tiếp nhận',
+    },
+    {
+      TRANG_THAI: 'PHIEU_DANG_DUOC_GUI',
+      TEN_TRANG_THAI: 'Phiếu đã giao kỹ thuật xử lý',
+    },
+    {
+      TRANG_THAI: 'HOAN_THANH',
+      TEN_TRANG_THAI: 'Hoàn thành',
+    },
+  ];
+  trangThaiTaoMoi: number = 1;
   insertPhieuBaoHong() {
     let sdt = this.searchForm.controls['sdt'].value;
     this.phieuDangKy.sdt = sdt;
@@ -80,7 +130,9 @@ export class NguoiDungGuoiPhieuComponent {
       KH_ID: element.KH_ID,
       DV_ID: element.DV_ID,
       PBH_NOIDUNG: element.PBH_NOIDUNG,
-      PBH_TRANGTHAI: element.PBH_TRANGTHAI
+      PBH_TRANGTHAI: element.PBH_TRANGTHAI,
+      PBH_DANHGIA_LOINHAN: element.PBH_DANHGIA_LOINHAN,
+      PBH_DANHGIA_SAO: element.PBH_DANHGIA_SAO,
     });
   }
 

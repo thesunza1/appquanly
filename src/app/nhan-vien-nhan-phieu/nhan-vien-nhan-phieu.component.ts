@@ -49,11 +49,15 @@ export class NhanVienNhanPhieuComponent {
     this.addForm.patchValue({
       DV_ID: element.DV_ID,
       PBH_NOIDUNG: element.PBH_NOIDUNG,
-      PBH_TRANGTHAI: element.PBH_TRANGTHAI
+      PBH_TRANGTHAI: element.PBH_TRANGTHAI,
+      PBH_DANHGIA_LOINHAN: element.PBH_DANHGIA_LOINHAN,
+      PBH_DANHGIA_SAO: element.PBH_DANHGIA_SAO,
     });
     this.addForm.controls.DV_ID.disable();
     this.addForm.controls.PBH_NOIDUNG.disable();
     this.addForm.controls.PBH_TRANGTHAI.disable();
+    this.addForm.controls.PBH_DANHGIA_SAO.disable();
+    this.addForm.controls.PBH_DANHGIA_LOINHAN.disable();
   }
   dmdichvu: any = [];
   apiGetDmdichvu() {
@@ -64,8 +68,53 @@ export class NhanVienNhanPhieuComponent {
   addForm = new FormGroup({
     DV_ID: new FormControl(null),
     PBH_NOIDUNG: new FormControl(null),
-    PBH_TRANGTHAI: new FormControl(null)
+    PBH_TRANGTHAI: new FormControl(null),
+    PBH_DANHGIA_SAO: new FormControl(null),
+    PBH_DANHGIA_LOINHAN: new FormControl(null),
   });
+  dmDanhGia: any = [
+    {
+      DANHGIA_SAO: 1,
+      DANHGIA: 'Không tốt',
+    },
+    {
+      DANHGIA_SAO: 2,
+      DANHGIA: ' Tạm được',
+    },
+    {
+      DANHGIA_SAO: 3,
+      DANHGIA: ' Bình thường',
+    },
+    {
+      DANHGIA_SAO: 4,
+      DANHGIA: ' Hài lòng',
+    },
+    {
+      DANHGIA_SAO: 5,
+      DANHGIA: ' Cực kỳ hài lòng',
+    },
+  ];
+
+
+  dmTrangThai: any = [
+    {
+      TRANG_THAI: 'PHIEU_DANG_DUOC_GUI',
+      TEN_TRANG_THAI: 'Phiếu đang được gửi',
+    },
+    {
+      TRANG_THAI: 'PHIEU_DA_DUOC_TIEP_NHAN',
+      TEN_TRANG_THAI: 'Phiếu đã được tiếp nhận',
+    },
+    {
+      TRANG_THAI: 'PHIEU_DANG_DUOC_GUI',
+      TEN_TRANG_THAI: 'Phiếu đã giao kỹ thuật xử lý',
+    },
+    {
+      TRANG_THAI: 'HOAN_THANH',
+      TEN_TRANG_THAI: 'Hoàn thành',
+    },
+  ];
+
   apiXN(body: any) {
     this.apiService.xacnhanPhieuBaoHong(body).subscribe(res => {
       if (res.status == 200) {
