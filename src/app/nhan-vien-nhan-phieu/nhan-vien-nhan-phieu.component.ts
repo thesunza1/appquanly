@@ -28,10 +28,11 @@ export class NhanVienNhanPhieuComponent {
   });
 
   search() {
-    if (this.searchForm.controls['sdt'].value != null) {
+    let sdt=Number(this.searchForm.controls['sdt'].value);
+    if (sdt) {
       this.apiSearchNV(this.searchForm.controls['sdt'].value);
     } else {
-      this.apiSearch();
+      alert('Vui lòng nhập số điện thoại chính xác');
     }
     this.apiGetDmdichvu();
   }
@@ -41,27 +42,30 @@ export class NhanVienNhanPhieuComponent {
       this.dataSource.data = res.data;
     });
   }
+  idNhanVien=null;
   apiSearchNV(sdt: any) {
     this.apiService.getDSPhieuBaoHongBySdtNhanVien(sdt).subscribe(res => {
       this.dataSource.data = res.data;
+      this.idNhanVien=res.thongtinhanvien.NV_ID;
     });
   }
 
   apiGetChiTiet(element: any) {
     this.setViewCapNhatChiTiet(element);
   }
-
+  trangthaiphieu="";
   setViewCapNhatChiTiet(element: any) {
     this.addForm.patchValue({
+      PBH_ID: element.PBH_ID,
       DV_ID: element.DV_ID,
       PBH_NOIDUNG: element.PBH_NOIDUNG,
       PBH_TRANGTHAI: element.PBH_TRANGTHAI,
       PBH_DANHGIA_LOINHAN: element.PBH_DANHGIA_LOINHAN,
       PBH_DANHGIA_SAO: element.PBH_DANHGIA_SAO,
       ID_NV_XU_LY: element.ID_NV_XU_LY,
-      ID_NV_TIEP_NHAN: element.ID_NV_TIEP_NHAN,
-
+      ID_NV_TIEP_NHAN: this.idNhanVien,
     });
+    this.trangthaiphieu=element.PBH_TRANGTHAI
     this.addForm.controls.DV_ID.disable();
     this.addForm.controls.PBH_NOIDUNG.disable();
     this.addForm.controls.PBH_TRANGTHAI.disable();
@@ -75,6 +79,7 @@ export class NhanVienNhanPhieuComponent {
     });
   }
   addForm = new FormGroup({
+    PBH_ID: new FormControl(null),
     DV_ID: new FormControl(null),
     PBH_NOIDUNG: new FormControl(null),
     PBH_TRANGTHAI: new FormControl(null),
@@ -136,15 +141,31 @@ export class NhanVienNhanPhieuComponent {
       }
     })
   }
-  apiBG(body: any) {
+  apiBG() {
+    let body=this.addForm.getRawValue();
     this.apiService.bangiaoxulyPhieuBaoHong(body).subscribe(res => {
       if (res.status == 200) {
-        this._snackBar.open('Cập nhật thành công', 'Đóng')
+        this._snackBar.open('Bàn giao thành công', 'Đóng')
+        this.trangthaiphieu='PHIEU_DA_GIAO_KY_THUAT_XU_LY'
         this.search();
       } else {
-        this._snackBar.open('Cập nhật lỗi', 'Đóng');
+        this._snackBar.open('Bàn giao lỗi', 'Đóng');
       }
     })
+  }
+  apiXN_() {
+    if (confirm("Xác nhận tiếp nhận phiếu!") == true) {
+      let body=this.addForm.getRawValue();
+      this.apiService.xacnhanPhieuBaoHong(body).subscribe(res => {
+        if (res.status == 200) {
+          this._snackBar.open('Tiếp nhận thành công', 'Đóng')
+          this.trangthaiphieu="PHIEU_DA_DUOC_TIEP_NHAN";
+          this.search();
+        } else {
+          this._snackBar.open('Tiếp nhận lỗi', 'Đóng');
+        }
+      })
+    }
   }
 
 }

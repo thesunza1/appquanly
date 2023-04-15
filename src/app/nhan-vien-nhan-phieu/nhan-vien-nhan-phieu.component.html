@@ -78,11 +78,17 @@
                     </div>
                     <div class="modal-footer">
                         <div class="btn-footer">
-                            <button mat-raised-button id="add-Family-btn" type="submit" color="primary">
-                                Cập nhật phiếu
+                            <button mat-raised-button id="add-Family-btn" (click)="apiBG()" color="primary" *ngIf="trangthaiphieu!='HOAN_THANH'">
+                                Bàn giao phiếu
+                            </button>
+                        </div>
+                        <div class="btn-footer">
+                            <button mat-raised-button id="add-Family-btn" (click)="apiXN_()" color="primary" *ngIf="trangthaiphieu=='PHIEU_DANG_DUOC_GUI'">
+                               Xác nhận phiếu
                             </button>
                         </div>
                     </div>
+                    
                 </form>
             </mat-expansion-panel>
         </div>
@@ -125,16 +131,12 @@
                     <th mat-header-cell *matHeaderCellDef> Thao tác </th>
                     <td mat-cell *matCellDef="let element" class="text-center">
                         <button mat-icon-button class="color-blue" matTooltip="Xem" (click)="apiGetChiTiet(element)">
-                            <p class="h6">Chi Tiết</p>
+                            <p class="h6">Chọn</p>
                         </button>
-                        <button mat-icon-button class="color-blue" matTooltip="Chuyển trạng thái"
-                            (click)="apiXN(element)">
+                        <!-- <button mat-icon-button class="color-blue" matTooltip="Chuyển trạng thái"
+                            (click)="apiXN(element)" *ngIf="element.PBH_TRANGTHAI=='PHIEU_DANG_DUOC_GUI'">
                             <p class="h6">xác nhận</p>
-                        </button>
-                        <button mat-icon-button class="color-blue" matTooltip="Chuyển trạng thái"
-                            (click)="apiBG(element)">
-                            <p class="h6"> Chuyển KT</p>
-                        </button>
+                        </button> -->
                     </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
