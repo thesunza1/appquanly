@@ -20,12 +20,12 @@ export class NhanVienKyThuatComponent {
   searchForm = new FormGroup({
     sdt: new FormControl(null)
   });
-
   search() {
-    if (this.searchForm.controls['sdt'].value != null) {
+    let sdt=Number(this.searchForm.controls['sdt'].value);
+    if (sdt) {
       this.apiSearchNV(this.searchForm.controls['sdt'].value);
     } else {
-      this.apiSearch();
+      alert('Vui lòng nhập số điện thoại chính xác');
     }
     this.apiGetDmdichvu();
   }
@@ -53,7 +53,7 @@ export class NhanVienKyThuatComponent {
     });
   }
   apiSearchNV(sdt: any) {
-    this.apiService.getDSPhieuBaoHongBySdtNhanVien(sdt).subscribe(res => {
+    this.apiService.getDSPhieuBaoHongBySdtNhanVienKyThuat(sdt).subscribe(res => {
       this.dataSource.data = res.data;
     });
   }
@@ -86,13 +86,16 @@ export class NhanVienKyThuatComponent {
   });
 
   apiHT(body: any) {
-    this.apiService.hoanthanhPhieuBaoHong(body).subscribe(res => {
-      if (res.status == 200) {
-        this._snackBar.open('Cập nhật thành công', 'Đóng')
-        this.search();
-      } else {
-        this._snackBar.open('Cập nhật lỗi', 'Đóng');
-      }
-    })
+    console.log(body);
+    if (confirm("Xác nhận hoàn thành!") == true) {
+      this.apiService.hoanthanhPhieuBaoHong(body).subscribe(res => {
+        if (res.status == 200) {
+          this._snackBar.open('Cập nhật thành công', 'Đóng')
+          this.search();
+        } else {
+          this._snackBar.open('Cập nhật lỗi', 'Đóng');
+        }
+      })
+    }
   }
 }

@@ -87,7 +87,7 @@
                         <button mat-icon-button class="color-blue" matTooltip="Xem" (click)="apiGetChiTiet(element)">
                             <p class="h6"> Chi tiết</p>
                         </button>
-                        <button mat-icon-button class="color-blue" matTooltip="Chuyển trạng thái" 
+                        <button *ngIf="element.PBH_TRANGTHAI=='PHIEU_DA_GIAO_KY_THUAT_XU_LY'" mat-icon-button class="color-blue" matTooltip="Chuyển trạng thái" 
                             (click)="apiHT(element)">
                             <p class="h6"> Hoàn thành</p>
                         </button>

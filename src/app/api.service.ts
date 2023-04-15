@@ -23,6 +23,9 @@ export class ApiService {
   getDSPhieuBaoHongBySdtNhanVien(sdt:any){
     return this.http.get<any>(this.apiUrl+'NhanVien/getDSPhieuBaoHongBySdtNhanVien/'+ sdt).pipe()
   }
+  getDSPhieuBaoHongBySdtNhanVienKyThuat(sdt:any){
+    return this.http.get<any>(this.apiUrl+'NhanVien/getDSPhieuBaoHongBySdtNhanVienKyThuat/'+ sdt).pipe()
+  }
 
   phieuBaoHong(){
     return this.http.get<any>(this.apiUrl+'PhieuBaoHong/danhsachphieu').pipe()
