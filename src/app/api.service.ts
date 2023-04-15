@@ -4,23 +4,27 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  apiUrl = 'http://localhost:8000/api/';
+  apiUrl = 'http://10.102.24.81:8000/api/';
   constructor(private http: HttpClient) { }
 
 
   getAll(){
-    return this.http.get<any>(this.apiUrl + 'DichVu/geDanhSachDichVu').pipe()
+    return this.http.get<any>(this.apiUrl + 'DichVu/getDanhSachDichVu').pipe()
   }
   
-  getDSBaoHongByIdKhachHang(sdt:any){
-    return this.http.get<any>(this.apiUrl+'KhachHang/getDSBaoHongBySdtKhachHang/'+ sdt).pipe()
+  getDSBaoHongByIdKhachHang(id:any){
+    return this.http.get<any>(this.apiUrl+'DichVu/getDSDichVuByIdKhachHang/'+ id).pipe()
   }
 
   getDSBaoHongBySdtKhachHang(sdt:any){
-    return this.http.get<any>(this.apiUrl+'DichVu/getDSDichVuByIdKhachHang/'+ sdt).pipe()
+    return this.http.get<any>(this.apiUrl+'KhachHang/getDSBaoHongBySdtKhachHang/'+ sdt).pipe()
   }
 
-  phieuBaoHong(sdt:any){
+  getDSPhieuBaoHongBySdtNhanVien(sdt:any){
+    return this.http.get<any>(this.apiUrl+'NhanVien/getDSPhieuBaoHongBySdtNhanVien/'+ sdt).pipe()
+  }
+
+  phieuBaoHong(){
     return this.http.get<any>(this.apiUrl+'PhieuBaoHong/danhsachphieu').pipe()
   }
 
@@ -28,18 +32,15 @@ export class ApiService {
     return this.http.post<any>(this.apiUrl+'PhieuBaoHong/insert', body).pipe()
   }
 
-  bangiaoxulyPhieuBaoHong(body:any){
-    return this.http.post<any>(this.apiUrl+'PhieuBaoHong/banGiaoXuLy', body).pipe()
-  }
-
-  xacnhanPhieuBaoHong(body:any){
-    return this.http.post<any>(this.apiUrl+'PhieuBaoHong/xacNhan', body).pipe()
-  }
-
   capnhatPhieuBaoHong(body:any){
     return this.http.post<any>(this.apiUrl+'PhieuBaoHong/update', body).pipe()
   }
-
+  xacnhanPhieuBaoHong(body:any){
+    return this.http.post<any>(this.apiUrl+'PhieuBaoHong/xacNhan', body).pipe()
+  }
+  bangiaoxulyPhieuBaoHong(body:any){
+    return this.http.post<any>(this.apiUrl+'PhieuBaoHong/banGiaoXuLy', body).pipe()
+  }
   hoanthanhPhieuBaoHong(body:any){
     return this.http.post<any>(this.apiUrl+'PhieuBaoHong/hoanThanh', body).pipe()
   }

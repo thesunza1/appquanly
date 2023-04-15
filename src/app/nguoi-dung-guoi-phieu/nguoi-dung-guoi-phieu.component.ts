@@ -13,31 +13,13 @@ export class NguoiDungGuoiPhieuComponent {
   constructor(private apiService: ApiService,
     private _snackBar: MatSnackBar,
   ) { }
-  dichVuSuDungs: any = [
-    {
-      dv_id: 1,
-      dv_tendv: 'mytv',
-    },
-    {
-      dv_id: 2,
-      dv_tendv: 'wifi home 1',
-    },
-    {
-      dv_id: 3,
-      dv_tendv: 'wifi home 2',
-    },
-    {
-      dv_id: 4,
-      dv_tendv: 'wifi home 3',
-    },
-  ]
+
   addForm = new FormGroup({
-    sdt: new FormControl(null),
-    id: new FormControl(null),
-    dv_id: new FormControl(null),
-    dv_ten: new FormControl(null),
-    pbh_noidung: new FormControl(null),
-    trangthai: new FormControl(null)
+    PBH_ID: new FormControl(null),
+    KH_ID: new FormControl(null),
+    DV_ID: new FormControl(null),
+    PBH_NOIDUNG: new FormControl(null),
+    PBH_TRANGTHAI: new FormControl(null)
   });
   ELEMENT_DATA: any = [];
   dataSource = new MatTableDataSource<any>(this.ELEMENT_DATA);
@@ -52,7 +34,7 @@ export class NguoiDungGuoiPhieuComponent {
   }
 
   apiSearch(sdt: any) {
-    this.apiService.getDSBaoHongByIdKhachHang(sdt).subscribe(res => {
+    this.apiService.getDSBaoHongBySdtKhachHang(sdt).subscribe(res => {
       this.dataSource.data = res.phieubaohong;
     });
   }
@@ -65,16 +47,15 @@ export class NguoiDungGuoiPhieuComponent {
   }
   phieuDangKy: any = {
     sdt: 0,
-    dv_id: null,
-    pbh_noidung: null
+    DV_ID: null,
+    PBH_NOIDUNG: null
   }
 
   insertPhieuBaoHong() {
     let sdt = this.searchForm.controls['sdt'].value;
     this.phieuDangKy.sdt = sdt;
-    this.phieuDangKy.dv_id = this.addForm.controls['dv_id'].value;
-    this.phieuDangKy.pbh_noidung = this.addForm.controls['pbh_noidung'].value;
-    console.log(this.phieuDangKy);
+    this.phieuDangKy.DV_ID = this.addForm.controls['DV_ID'].value;
+    this.phieuDangKy.PBH_NOIDUNG = this.addForm.controls['PBH_NOIDUNG'].value;
     this.apiInsertPhieuBaoHong(this.phieuDangKy);
 
   }
@@ -87,5 +68,37 @@ export class NguoiDungGuoiPhieuComponent {
         this._snackBar.open('Thêm Lỗi', 'Đóng');
       }
     })
+  }
+
+  apiGetChiTiet(element: any) {
+    this.setViewCapNhatChiTiet(element);
+  }
+
+  setViewCapNhatChiTiet(element: any) {
+    this.addForm.patchValue({
+      PBH_ID: element.PBH_ID,
+      KH_ID: element.KH_ID,
+      DV_ID: element.DV_ID,
+      PBH_NOIDUNG: element.PBH_NOIDUNG,
+      PBH_TRANGTHAI: element.PBH_TRANGTHAI
+    });
+  }
+
+  apiCapNhat(body: any) {
+    this.apiService.capnhatPhieuBaoHong(body).subscribe(res => {
+      if (res.status == 200) {
+        this._snackBar.open('Cập nhật thành công', 'Đóng')
+        this.search();
+      } else {
+        this._snackBar.open('Cập nhật lỗi', 'Đóng');
+      }
+    })
+  }
+
+  capNhat() {
+    if (this.addForm.valid) {
+      let form = this.addForm.getRawValue();
+      this.apiCapNhat(form);
+    }
   }
 }
